@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Meslek Sorgulama
+{% endblock %}
+
+{% block content %}
+    <h1>{{meslek}}</h1>
+    <p>{{meslek}} mesleğine ait içerik</p>
+    {% for yetenek in yetenekler%}
+        <li>{{yetenek}}</li>
+    {% endfor %}
+{% endblock %}

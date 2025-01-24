@@ -4,5 +4,6 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.MeslekSorgulama),
+    path('', views.MeslekSorgulamaAnaSayfa),
+    path('meslekler/<str:meslek>', views.MeslekSorgulamaByCategory)
 ]
