@@ -11,12 +11,14 @@
     {% for insan in hakkimizdaDB.insanlar%}
         <div class="container mt-3 mb-3">
             <div class="row">
-                <div class="col-4 d-flex align-items-center justify-content-end" >
+                <div class="col-4 d-flex justify-content-end" >
                         <img src="{{insan.imageURL}}" style="border-radius: 50%; width: 170px; height: 170px;" class="float-right">
                 </div>
-                <div class="col-8 mt-5 align-middle text-left">
-                    <h3>{{insan.ad}}</h3>
-                    <a href="mailto:{{insan.mail}}">{{insan.mail}}</a>
+                <div class="col-8 d-flex align-items-center">
+                    <div class="text-left">
+                        <h3>{{insan.ad}}</h3>
+                        <a href="mailto:{{insan.mail}}">{{insan.mail}}</a>
+                    </div>     
                 </div>
             </div>
         </div>
