@@ -1,16 +1,22 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Meslek,MeslekSektor,MeslekBolum
+from django.shortcuts import get_object_or_404
 
-# Create your views here.
-
-meslekler = ["bilgisayar","endüstri"]
-
-yetenekler = ["C#","Python","C++","Ruby"]
 
 def MeslekSorgulamaAnaSayfa(request):
     return render(request, 'MeslekSorgulamaAnaSayfa.html')
 
 def MeslekSorgulamaByCategory(request, meslek):
-    if meslek not in meslekler:
-        return HttpResponse("<h1>404</h1>")
-    return render(request, 'MeslekSorgulamaByCategory.html', {'meslek': meslek, 'yetenekler': yetenekler})
+    meslek = get_object_or_404(Meslek, slug=meslek)
+
+    content = {
+        'meslek': meslek,
+        'dusuk_maas': meslek.en_dusuk_maas,
+        'ortalama_maas': meslek.ortalama_maas,
+        'yuksek_maas': meslek.en_yuksek_maas,
+        'katilimci': meslek.ankete_katilan_sayisi,
+        'sektorler': MeslekSektor.objects.filter(meslek=meslek),
+        'bolumler': MeslekBolum.objects.filter(meslek=meslek),
+        'yetenekler': meslek.yetenekler.all()
+    }
+    return render(request, 'MeslekSorgulamaByCategory.html', {'meslek': content["meslek"],'dusuk_maas': content['dusuk_maas'],'ortalama_maas': content['ortalama_maas'],'yuksek_maas': content['yuksek_maas'],'katilimci': content['katilimci'],'sektorler': content["sektorler"],'bolumler': content["bolumler"], 'yetenekler': content["yetenekler"]})

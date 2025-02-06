@@ -6,8 +6,26 @@
 
 {% block content %}
     <h1>{{meslek}}</h1>
-    <p>{{meslek}} mesleğine ait içerik</p>
+
+    <h3>Maaş</h3>
+    <p>{{katilimci}} kullanıcının katıldığı anket sonucu elde edilmiş maaş verileri.</p>
+    <p>En düşük maaş: {{dusuk_maas}}</p>
+    <p>Ortalama maaş: {{ortalama_maas}}</p>
+    <p>En yüksek maaş: {{yuksek_maas}}</p>
+
+    <h3>İlgili Bölümler</h3>
+    {% for bol in bolumler%}
+        <li>{{bol.bolum}} / %{{bol.yuzde}}</li>
+    {% endfor %}
+
+    <h3>İlgili Sektorler</h3>
+    {% for sek in sektorler%}
+        <li>{{sek.sektor}} / %{{sek.yuzde}}</li>
+    {% endfor %}
+
+    <h3>İlgili Yetenekler</h3>
     {% for yetenek in yetenekler%}
         <li>{{yetenek}}</li>
     {% endfor %}
+    
 {% endblock %}
