@@ -9,5 +9,6 @@ urlpatterns = [
     path('', views.home),
     path('hakkimizda/', views.hakkimizda),
     path('admin/', admin.site.urls),
-    path('meslek-sorgulama/', include('MeslekSorgulama.urls'))
+    path('meslek-sorgulama/', include('MeslekSorgulama.urls')),
+    path('ats/', include('ATSUyum.urls'))
 ]

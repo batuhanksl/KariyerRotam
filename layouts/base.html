@@ -17,18 +17,34 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Anasayfa</a>
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Anasayfa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/meslek-sorgulama">Meslek Sorgulama</a>
+                        <a class="nav-link {% if request.path == '/meslek-sorgulama/' or request.path == '/meslek-sorgulama' %}active{% endif %}" href="/meslek-sorgulama">Meslek Sorgulama</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/hakkimizda">Hakkımızda</a>
+                        <a class="nav-link {% if request.path|slice:':16' == '/ats/meslekoner/' %}active{% endif %}" href="/ats/meslekoner/">Bana En Uygun Meslek Ne?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path|slice:':8' == '/ats/' %}active{% endif %}" href="/ats">ATS Uyum Sorgulama</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">İş İlanları</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Ücretsiz CV Oluştur</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path|slice:':11' == '/hakkimizda' %}active{% endif %}" href="/hakkimizda">Hakkımızda</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+    
+
+    
+    
 
     <!-- Content -->
     <div class="container mt-5 mb-5">

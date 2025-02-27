@@ -5,22 +5,21 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Biz Kimiz?</h1>
-    <p>{{hakkimizdaDB.infoParagraph}}</p>
-    <h1>Ekibimiz</h1>
-    {% for insan in hakkimizdaDB.insanlar%}
-        <div class="container mt-3 mb-3">
-            <div class="row">
-                <div class="col-4 d-flex justify-content-end" >
-                        <img src="{{insan.imageURL}}" style="border-radius: 50%; width: 170px; height: 170px;" class="float-right">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Biz Kimiz?</h1>
+        <p class="text-center">{{ hakkimizdaDB.infoParagraph }}</p>
+
+        <h2 class="mt-5 mb-3">Ekibimiz</h2>
+        {% for insan in hakkimizdaDB.insanlar %}
+            <div class="row mt-3 mb-4 align-items-center">
+                <div class="col-md-4 text-center">
+                    <img src="{{ insan.imageURL }}" alt="Team Member" style="border-radius: 50%; width: 170px; height: 170px;">
                 </div>
-                <div class="col-8 d-flex align-items-center">
-                    <div class="text-left">
-                        <h3>{{insan.ad}}</h3>
-                        <a href="mailto:{{insan.mail}}">{{insan.mail}}</a>
-                    </div>     
+                <div class="col-md-8">
+                    <h3 class="mb-2">{{ insan.ad }}</h3>
+                    <a href="mailto:{{ insan.mail }}" class="text-primary">{{ insan.mail }}</a>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 {% endblock %}

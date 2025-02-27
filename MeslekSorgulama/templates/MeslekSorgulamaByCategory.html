@@ -5,27 +5,44 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{meslek}}</h1>
+    <div class="container mt-5">
+        <h1 class="text-center">{{ meslek }}</h1>
+        
+        <div class="mt-4">
+            <h3 class="text-success">Maaş Bilgileri</h3>
+            <p><strong>{{ katilimci }}</strong> kullanıcının katıldığı anket sonucu elde edilmiş maaş verileri:</p>
+            <ul class="list-group">
+                <li class="list-group-item">En düşük maaş: <strong>{{ dusuk_maas }}</strong></li>
+                <li class="list-group-item">Ortalama maaş: <strong>{{ ortalama_maas }}</strong></li>
+                <li class="list-group-item">En yüksek maaş: <strong>{{ yuksek_maas }}</strong></li>
+            </ul>
+        </div>
 
-    <h3>Maaş</h3>
-    <p>{{katilimci}} kullanıcının katıldığı anket sonucu elde edilmiş maaş verileri.</p>
-    <p>En düşük maaş: {{dusuk_maas}}</p>
-    <p>Ortalama maaş: {{ortalama_maas}}</p>
-    <p>En yüksek maaş: {{yuksek_maas}}</p>
+        <div class="mt-4">
+            <h3 class="text-success">İlgili Bölümler</h3>
+            <ul class="list-group">
+                {% for bol in bolumler %}
+                    <li class="list-group-item">{{ bol.bolum }} / %{{ bol.yuzde }}</li>
+                {% endfor %}
+            </ul>
+        </div>
 
-    <h3>İlgili Bölümler</h3>
-    {% for bol in bolumler%}
-        <li>{{bol.bolum}} / %{{bol.yuzde}}</li>
-    {% endfor %}
+        <div class="mt-4">
+            <h3 class="text-success">İlgili Sektörler</h3>
+            <ul class="list-group">
+                {% for sek in sektorler %}
+                    <li class="list-group-item">{{ sek.sektor }} / %{{ sek.yuzde }}</li>
+                {% endfor %}
+            </ul>
+        </div>
 
-    <h3>İlgili Sektorler</h3>
-    {% for sek in sektorler%}
-        <li>{{sek.sektor}} / %{{sek.yuzde}}</li>
-    {% endfor %}
-
-    <h3>İlgili Yetenekler</h3>
-    {% for yetenek in yetenekler%}
-        <li>{{yetenek}}</li>
-    {% endfor %}
-    
+        <div class="mt-4">
+            <h3 class="text-success">İlgili Yetenekler</h3>
+            <ul class="list-group">
+                {% for yetenek in yetenekler %}
+                    <li class="list-group-item">{{ yetenek }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}
