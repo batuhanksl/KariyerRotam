@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 
 
 def MeslekSorgulamaAnaSayfa(request):
-    return render(request, 'MeslekSorgulamaAnaSayfa.html')
+    return render(request, 'MeslekSorgulamaAnaSayfa.html', {'meslekler': Meslek.objects.all()})
 
 def MeslekSorgulamaByCategory(request, meslek):
     meslek = get_object_or_404(Meslek, slug=meslek)
