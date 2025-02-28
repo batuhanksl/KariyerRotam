@@ -1,16 +1,102 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Kariyer Rotam | {% block title %} {% endblock%}</title>
+    <title>ElevateU | {% block title %} {% endblock%}</title>
+    <link rel="icon" href="{% static 'images/ElevateULogo.ico' %}" type="image/x-icon">
+    <style>
+        /* Change color of select picker text */
+        .selectpicker.form-control {
+            color: #e09500 !important;         /* Text color */
+            border-color: #e09500 !important;  /* Border color */
+        }
+
+        /* Change background color and border of selectpicker on focus */
+        .selectpicker.form-control:focus {
+            border-color: #e09500 !important;  /* Focus border color */
+            box-shadow: 0 0 0 0.2rem rgba(224, 149, 0, 0.5) !important; /* Focus box-shadow */
+        }
+
+        /* Change color of selected option in the selectpicker dropdown */
+        .selectpicker option {
+            color: #e09500 !important;         /* Text color of option */
+        }
+
+        /* Hover effect for the dropdown options */
+        .selectpicker option:hover {
+            background-color: #e09500 !important; /* Option hover background color */
+            color: white !important;              /* Text color on hover */
+        }
+
+        /* Change the selected option's background color inside the dropdown */
+        .selectpicker .dropdown-menu .selected {
+            background-color: #e09500 !important;
+            color: white !important;
+        }
+
+        /* Change the arrow color of the selectpicker */
+        .selectpicker .dropdown-toggle::after {
+            color: #e09500 !important;         /* Arrow color */
+        }
+
+        /* Custom styles for the dropdown menu */
+        .selectpicker .dropdown-menu {
+            background-color: white !important;
+            border-color: #e09500 !important;
+        }
+
+        /* Ensure the dropdown items' hover background color */
+        .selectpicker .dropdown-menu .inner > li:hover {
+            background-color: #e09500 !important;
+            color: white !important;
+        }
+
+
+        /* Override Bootstrap's Primary Color for buttons, backgrounds, and text */
+        .btn-outline-primary{
+            /* background-color: #e09500 !important; */
+            border-color: #e09500 !important;
+            color: #e09500 !important; /* Ensures text is visible on primary buttons */
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #e09500 !important;
+            color: white !important;
+            border-color: #e09500 !important;
+        }
+
+        /* Override the text-primary class to affect text color globally */
+        .text-primary {
+            color: #e09500 !important;
+        }
+        
+        /* Ensure links using .text-primary are also affected */
+        a.text-primary {
+            color: #e09500 !important;
+            text-decoration: none;
+        }
+
+        a.text-primary:hover {
+            color: #c57b00 !important;  /* Use a darker shade for hover */
+            text-decoration: none;       /* Optional: Remove underline if needed */
+        }
+
+        li.text-primary{
+            color: #e09500 !important;
+        }
+    </style>
 </head>
+
+    
+
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #00c878;">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #e09500;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Kariyer Rotam</a>
+            <a class="navbar-brand" href="/"><img src="{% static 'images/ElevateULogo.png' %}" alt="ElevateULogo" style="height: 70px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -54,7 +140,7 @@
     <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col text-center">
-                <p>&copy; 2024 Kariyer Rotam</p>
+                <p>&copy; 2024 ElevateU</p>
             </div>
         </div>
     </div>

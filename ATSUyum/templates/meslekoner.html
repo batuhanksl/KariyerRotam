@@ -9,13 +9,13 @@
         <h1 class="text-center">Sana en uygun meslek ne?</h1>
 
         <div class="mt-5" style="background-color: #4b4b4b08; padding: 20px; border-radius: 50px; margin:20%;">
-            <h2 class="text-success text-center">Özgeçmişinizi Yükleyin</h2>
+            <h2 class="text-primary text-center">Özgeçmişinizi Yükleyin</h2>
             <form method="POST" enctype="multipart/form-data" class="text-center">
                 {% csrf_token %}
                 <div class="mb-3" style="max-width: 600px; margin: 0 auto;">
                     {{ form.as_p }}
                 </div>
-                <button type="submit" class="btn btn-outline-success btn-light mt-4 w-50 padding: 20px border-radius: 50px">Sorgula</button>
+                <button type="submit" class="btn btn-outline-primary btn-light mt-4 w-50 padding: 20px border-radius: 50px">Sorgula</button>
             </form>
         </div>
     </div>

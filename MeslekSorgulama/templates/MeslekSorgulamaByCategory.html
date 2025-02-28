@@ -9,7 +9,7 @@
         <h1 class="text-center">{{ meslek }}</h1>
         
         <div class="mt-4">
-            <h3 class="text-success">Maaş Bilgileri</h3>
+            <h3 class="text-primary">Maaş Bilgileri</h3>
             <p><strong>{{ katilimci }}</strong> kullanıcının katıldığı anket sonucu elde edilmiş maaş verileri:</p>
             <ul class="list-group">
                 <li class="list-group-item">En düşük maaş: <strong>{{ dusuk_maas }}</strong></li>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="mt-4">
-            <h3 class="text-success">İlgili Bölümler</h3>
+            <h3 class="text-primary">İlgili Bölümler</h3>
             <ul class="list-group">
                 {% for bol in bolumler %}
                     <li class="list-group-item">{{ bol.bolum }} / %{{ bol.yuzde }}</li>
@@ -28,7 +28,7 @@
         </div>
 
         <div class="mt-4">
-            <h3 class="text-success">İlgili Sektörler</h3>
+            <h3 class="text-primary">İlgili Sektörler</h3>
             <ul class="list-group">
                 {% for sek in sektorler %}
                     <li class="list-group-item">{{ sek.sektor }} / %{{ sek.yuzde }}</li>
@@ -37,7 +37,7 @@
         </div>
 
         <div class="mt-4">
-            <h3 class="text-success">İlgili Yetenekler</h3>
+            <h3 class="text-primary">İlgili Yetenekler</h3>
             <ul class="list-group">
                 {% for yetenek in yetenekler %}
                     <li class="list-group-item">{{ yetenek }}</li>

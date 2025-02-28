@@ -11,7 +11,7 @@
             <ul class="list-group">
                 {% for meslekler in matching_meslek %}
                     <li class="list-group-item">
-                        <a href="{% url 'MeslekSorgulama:meslek_sorgulama' meslekler.slug %}">{{ meslekler.meslek_adi }}</a>
+                        <a href="{% url 'MeslekSorgulama:meslek_sorgulama' meslekler.slug %}" class="text-primary">{{ meslekler.meslek_adi }}</a>
                     </li>
                 {% endfor %}
             </ul>
