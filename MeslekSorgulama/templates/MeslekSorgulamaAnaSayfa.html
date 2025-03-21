@@ -6,24 +6,24 @@
 
 {% block content %}
     <div class="container d-flex justify-content-center align-items-center flex-column" style="height: 50vh;">
-        <h1 class="text-center mb-4" style="max-width: 1000px;">Hangi meslek hakkında bilgi almak istersiniz?</h1>
+        <h1 class="text-center mb-4" style="max-width: 1000px; color: #1b1c27;">Hangi meslek hakkında bilgi almak istersiniz?</h1>
 
-        <!-- Select Box with uniform width -->
-        <select class="selectpicker form-control mb-3 mt-5" data-live-search="true" title="Meslek seçiniz" name="meslekslug" id="meslekslug" style="max-width: 800px;">
+        <select class="selectpicker form-control mb-3 mt-5" data-live-search="true" title="Meslek seçiniz" name="meslekslug" id="meslekslug" style="max-width: 800px; border-color: #df6c24; color: #1b1c27;">
             {% for meslek in meslekler %}
-                <option value="{{meslek.slug}}">{{meslek.meslek_adi}}</option>
+                <option value="{{meslek.slug}}" style="color: #1b1c27;">{{meslek.meslek_adi}}</option>
             {% endfor %}
         </select>
 
-        <!-- Button with uniform width -->
-        <button id="searchButton" type="button" class="btn btn-outline-primary w-100" style="max-width: 800px;">Sorgula</button>
+        <button id="searchButton" type="button" class="btn btn-outline-primary w-100" style="max-width: 800px;">
+            Sorgula
+        </button>
     </div>
 
     <script>
         document.getElementById('searchButton').addEventListener('click', function() {
-            var meslekslug = document.getElementById('meslekslug').value; // Get selected value
-            if (meslekslug) { // Ensure a selection is made
-                window.location.href = '/meslek-sorgulama/meslekler/' + meslekslug; // Redirect to URL
+            var meslekslug = document.getElementById('meslekslug').value; 
+            if (meslekslug) { 
+                window.location.href = '/meslek-sorgulama/meslekler/' + meslekslug;
             } else {
                 alert('Lütfen bir meslek seçiniz.');
             }
@@ -31,5 +31,3 @@
     </script>
 
 {% endblock %}
-
-

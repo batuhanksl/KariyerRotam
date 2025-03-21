@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Test Sonuçları
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- Hidden div to store data safely -->
+        <div id="chart-data"
+             data-labels="{{ category_scores.keys|join:',' }}"
+             data-values="{{ category_scores.values|join:',' }}">
+        </div>
+
+        <!-- Radar Chart (only exists on this page) -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-center">Kişilik Testi Sonuçları</h1>
+                <div>
+                    <ul>
+                        {% for my_category, score in category_scores.items %}
+                            {% with description_field=description|dictsort:"kategori" %}
+                                {% for item in description_field %}
+                                    {% if item.kategori == my_category %}
+                                        {% if item.ust_sınır < score %}
+                                            <li>{{ item.yuksek_aciklama }}</li>
+                                        {% elif item.alt_sınır > score %}
+                                            <li>{{ item.dusuk_aciklama }}</li>
+                                        {% else %}
+                                            <li>{{ item.ortalama_aciklama }}</li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endwith %}
+                        {% endfor %}
+
+
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <canvas id="pentagonChart" style="height: 50%; width: 50%;"></canvas>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const chartCanvas = document.getElementById('pentagonChart');
+
+            // Check if the element exists before running Chart.js
+            if (chartCanvas) {
+                const ctx = chartCanvas.getContext('2d');
+
+                // Fetch data safely from hidden div
+                const chartData = document.getElementById('chart-data');
+                const labels = chartData.getAttribute('data-labels').split(',');
+                const dataValues = chartData.getAttribute('data-values').split(',').map(Number); // Convert to numbers
+
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: "Test Sonuçları",
+                            data: dataValues,
+                            backgroundColor: 'rgba(255, 144, 53, 0.2)',
+                            borderColor: 'rgba(255, 144, 53, 1)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            r: {
+                                beginAtZero: true,
+                                min: 10,
+                                max: 50,
+                                ticks: { stepSize: 10 }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: true }
+                        }
+                    }
+                });
+
+            }
+        });
+    </script>
+{% endblock %}

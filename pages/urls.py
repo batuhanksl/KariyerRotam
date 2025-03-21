@@ -10,5 +10,6 @@ urlpatterns = [
     path('hakkimizda/', views.hakkimizda),
     path('admin/', admin.site.urls),
     path('meslek-sorgulama/', include('MeslekSorgulama.urls')),
-    path('ats/', include('ATSUyum.urls'))
+    path('ats/', include('ATSUyum.urls')),
+    path('kisilik-testi/', include('KisilikTesti.urls')),
 ]

@@ -4,99 +4,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>ElevateU | {% block title %} {% endblock%}</title>
+    <title>ElevateU | {% block title %} {% endblock %}</title>
     <link rel="icon" href="{% static 'images/ElevateULogo.ico' %}" type="image/x-icon">
     <style>
-        /* Change color of select picker text */
-        .selectpicker.form-control {
-            color: #e09500 !important;         /* Text color */
-            border-color: #e09500 !important;  /* Border color */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #fefdfb;
+            color: #1b1c27;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* Change background color and border of selectpicker on focus */
-        .selectpicker.form-control:focus {
-            border-color: #e09500 !important;  /* Focus border color */
-            box-shadow: 0 0 0 0.2rem rgba(224, 149, 0, 0.5) !important; /* Focus box-shadow */
+        .text-primary {
+            color: #df6c24 !important;
         }
 
-        /* Change color of selected option in the selectpicker dropdown */
-        .selectpicker option {
-            color: #e09500 !important;         /* Text color of option */
+        .navbar {
+            background-color: #df6c24;
         }
 
-        /* Hover effect for the dropdown options */
-        .selectpicker option:hover {
-            background-color: #e09500 !important; /* Option hover background color */
-            color: white !important;              /* Text color on hover */
+        .navbar-brand img {
+            height: 70px;
         }
 
-        /* Change the selected option's background color inside the dropdown */
-        .selectpicker .dropdown-menu .selected {
-            background-color: #e09500 !important;
-            color: white !important;
+        .navbar-nav .nav-link {
+            color: #fefdfb !important;
         }
 
-        /* Change the arrow color of the selectpicker */
-        .selectpicker .dropdown-toggle::after {
-            color: #e09500 !important;         /* Arrow color */
+        .navbar-nav .nav-link.active {
+            font-weight: normal;
         }
 
-        /* Custom styles for the dropdown menu */
-        .selectpicker .dropdown-menu {
-            background-color: white !important;
-            border-color: #e09500 !important;
+        .navbar-nav .nav-link:hover {
+            color: #1b1c27 !important;
         }
 
-        /* Ensure the dropdown items' hover background color */
-        .selectpicker .dropdown-menu .inner > li:hover {
-            background-color: #e09500 !important;
-            color: white !important;
-        }
-
-
-        /* Override Bootstrap's Primary Color for buttons, backgrounds, and text */
-        .btn-outline-primary{
-            /* background-color: #e09500 !important; */
-            border-color: #e09500 !important;
-            color: #e09500 !important; /* Ensures text is visible on primary buttons */
+        .btn-outline-primary {
+            border-color: #df6c24 !important;
+            color: #df6c24 !important;
         }
 
         .btn-outline-primary:hover {
-            background-color: #e09500 !important;
+            background-color: #df6c24 !important;
             color: white !important;
-            border-color: #e09500 !important;
         }
 
-        /* Override the text-primary class to affect text color globally */
-        .text-primary {
-            color: #e09500 !important;
+        .selectpicker.form-control {
+            color: #df6c24 !important;
+            border-color: #df6c24 !important;
         }
-        
-        /* Ensure links using .text-primary are also affected */
+
+        .selectpicker.form-control:focus {
+            border-color: #df6c24 !important;
+            box-shadow: 0 0 0 0.2rem rgba(223, 108, 36, 0.5) !important;
+        }
+
+        .footer {
+            background-color: #1b1c27;
+            color: #fefdfb;
+            padding: 20px 0;
+            margin-top: auto;
+            width: 100%;
+        }
+
+        .footer p {
+            margin-bottom: 0;
+        }
+
         a.text-primary {
-            color: #e09500 !important;
-            text-decoration: none;
+            color: #df6c24 !important;
+            text-decoration: none !important;
         }
 
         a.text-primary:hover {
-            color: #c57b00 !important;  /* Use a darker shade for hover */
-            text-decoration: none;       /* Optional: Remove underline if needed */
+            color: #c57b00 !important;
         }
 
-        li.text-primary{
-            color: #e09500 !important;
+        li.text-primary {
+            color: #df6c24 !important;
         }
+        /*--------------------- Custom Range Slider (from SCSS provided)  ---------------------------------                  */
+        /* Gradient Buttons (from SCSS provided) */
+        .rangeWrap {
+            width: 100%;
+            max-width: 100%;
+            height: 30px;
+            background-color: #ff9035;
+            background-image: linear-gradient(100deg, rgb(255, 90, 100) 0%, rgb(250, 160, 75) 30%, rgb(210, 220, 105) 70%, rgb(14, 244, 155) 100%);
+            border-radius: 40px;
+            display: block;
+            margin: 50 auto;
+            position: relative;
+            box-shadow: 0 2px 4px -1px rgba(25, 25, 25, 0.2);
+        }
+
+        input[type="range"] {
+            width: 100%; /* Makes the slider fill its parent container */
+            height: 100%; /* Increase the height to make it more prominent */
+            background: transparent;
+            -webkit-appearance: none;
+            appearance: none;
+            border-radius: 40px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            box-shadow: inset 0 30px 20px -20px rgba(255, 255, 255, 0.15);
+        }
+
+        /* Customize the slider thumb (cursor) */
+        input[type="range"]::-webkit-slider-thumb {
+            width: 30px; /* Increase the thumb size for a larger cursor */
+            height: 30px; /* Increase the height for better visibility */
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #ff9035; /* Match the border color with the slider color */
+            cursor: pointer;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 0;
+            transition: all 0.3s ease;
+            -webkit-appearance: none; /* Ensure no default styling */
+        }
+
+        /* For Firefox */
+        input[type="range"]::-moz-range-thumb {
+            width: 30px; /* Increase the thumb size for a larger cursor */
+            height: 30px; /* Increase the height for better visibility */
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #ff9035; /* Match the border color with the slider color */
+            cursor: pointer;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        /* For Internet Explorer */
+        input[type="range"]::-ms-thumb {
+            width: 30px; /* Increase the thumb size for a larger cursor */
+            height: 30px; /* Increase the height for better visibility */
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #ff9035; /* Match the border color with the slider color */
+            cursor: pointer;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        /* Customize the datalist for percentage labels */
+        datalist {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            z-index: 0;
+        }
+
+        datalist option {
+            background-color: transparent;
+            color: white;
+        }
+
     </style>
 </head>
 
-    
-
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #e09500;">
+   
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/"><img src="{% static 'images/ElevateULogo.png' %}" alt="ElevateULogo" style="height: 70px;"></a>
+            <a class="navbar-brand" href="/"><img src="{% static 'images/ElevateULogo.png' %}" alt="ElevateULogo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -115,6 +194,9 @@
                         <a class="nav-link {% if request.path|slice:':8' == '/ats/' %}active{% endif %}" href="/ats">ATS Uyum Sorgulama</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/kisilik-testi/' %}active{% endif %}" href="/kisilik-testi">Kişilik Testi</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link">İş İlanları</a>
                     </li>
                     <li class="nav-item">
@@ -127,25 +209,18 @@
             </div>
         </div>
     </nav>
-    
 
     
-    
-
-    <!-- Content -->
     <div class="container mt-5 mb-5">
-        {% block content %} {% endblock%}
+        {% block content %} {% endblock %}
     </div>
 
-    <div class="container mt-5 mb-5">
-        <div class="row">
-            <div class="col text-center">
-                <p>&copy; 2024 ElevateU</p>
-            </div>
+    
+    <div class="footer">
+        <div class="container text-center">
+            <p>&copy; 2024 ElevateU</p>
         </div>
     </div>
-
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>

@@ -19,7 +19,7 @@ class MeslekYetenekInline(admin.TabularInline):
 @admin.register(Meslek)
 class MeslekAdmin(admin.ModelAdmin):
     list_display = ("meslek_adi", "ortalama_maas", "ankete_katilan_sayisi")
-    inlines = [MeslekSektorInline, MeslekBolumInline,MeslekYetenekInline]  # Inline'ları admin paneline ekle
+    inlines = [MeslekSektorInline, MeslekBolumInline,MeslekYetenekInline] 
 
 
 @admin.register(Sektor)

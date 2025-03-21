@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
     Anasayfa
 {% endblock %}
 
 {% block content %}
-    <h1 class="mt-5 text-center text-primary">Geliştirilecek...</h1>
-    <h5 class="mt-5 text-center">Diğer sayaların kısa açıklamaları eklenip konteynır halinde gözükecek bunlar editlenebilir olacak</h5>
-    
+    <div class="container mt-5">
+        {% for page in pages %}
+            <div class="row mb-4 justify-content-center" style="background-color: #4b4b4b08; padding: 20px; border-radius: 50px;">
+                <div class="col-md-3 {% if forloop.counter|divisibleby:2 %}order-md-first{% else %}order-md-last{% endif %}">
+                    <img src="{% static 'images/ElevateULogo.png' %}" alt="photo" class="img-fluid" style="width: 400px; height: 300px; border-radius: 20px;">
+                </div>
+                <div class="col-md-7 justify-content-center mt-5">
+                    <h3 class="text-center">{{ page.header }}</h3>
+                    <p class="text-center">{{ page.description }}</p>
+                    <a href="{{ page.link }}" class="btn btn-outline-primary w-100" style="max-width: 800px; border-radius: 20px;">
+                        Git >
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
