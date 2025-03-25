@@ -79,6 +79,7 @@
                 const labelsSektorler = chartDataSektorler.getAttribute('data-labels').split(','); // Split labels by comma
                 const dataValuesSektorler = chartDataSektorler.getAttribute('data-values').split(',').map(Number); // Convert values to numbers
                 
+
                 // Create Pie chart for 'bolumler'
                 new Chart(ctxBolumler, {
                     type: 'pie',
@@ -87,7 +88,7 @@
                         datasets: [{
                             label: "İlgili Bölümler",
                             data: dataValuesBolumler,
-                            backgroundColor: ["#ff6e54","#ff8546","#ff9f34","#ffbb1f","#ffd802","#555555"], // Pie slice colors
+                            backgroundColor: ["#555555","#ff6e54","#ff8546","#ff9f34","#ffbb1f","#ffd802"], // Pie slice colors
                             hoverBackgroundColor: ['#FF8C94', '#5FA8D5', '#FFD87C', '#62E4E4', '#B27AFF'],
                         }]
                     },
@@ -116,7 +117,7 @@
                         datasets: [{
                             label: "İlgili Sektörler",
                             data: dataValuesSektorler,
-                            backgroundColor: ["#ff6e54","#ff8546","#ff9f34","#ffbb1f","#ffd802","#555555"], // Pie slice colors
+                            backgroundColor: ["#555555","#ff6e54","#ff8546","#ff9f34","#ffbb1f","#ffd802"], // Pie slice colors
                             hoverBackgroundColor: ['#FF8F6E', '#9F4ED3', '#6FC9D5', '#FFDA4D', '#F7A3B6'],
                         }]
                     },
