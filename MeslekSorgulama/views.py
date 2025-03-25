@@ -24,6 +24,9 @@ def MeslekSorgulamaByCategory(request, meslek):
 
     sektorlerim["Diğer"] = 100 - sum(sektorlerim.values())
 
+    bolumlerim = {"Diğer": bolumlerim.pop("Diğer"), **bolumlerim}
+    sektorlerim = {"Diğer": sektorlerim.pop("Diğer"), **sektorlerim}
+
     content = {
         'meslek': meslek,
         'dusuk_maas': meslek.en_dusuk_maas,
