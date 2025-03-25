@@ -46,7 +46,7 @@ class MeslekSektor(models.Model):
     yuzde = models.IntegerField()  
 
     def __str__(self):
-        return f"{self.meslek.meslek_adi} - {self.sektor.sektor_adi} (%{self.yuzde})"
+        return f"{self.sektor.sektor_adi},{self.yuzde}"
 
 class MeslekBolum(models.Model):
     meslek = models.ForeignKey(Meslek, on_delete=models.CASCADE)
@@ -54,7 +54,7 @@ class MeslekBolum(models.Model):
     yuzde = models.IntegerField()  
 
     def __str__(self):
-        return f"{self.meslek.meslek_adi} - {self.bolum.bolum_adi} (%{self.yuzde})"
+        return f"{self.bolum.bolum_adi},{self.yuzde}"
 
 class MeslekYetenek(models.Model):
     meslek = models.ForeignKey(Meslek, on_delete=models.CASCADE)

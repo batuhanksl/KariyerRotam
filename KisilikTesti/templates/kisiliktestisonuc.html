@@ -17,24 +17,10 @@
             <div class="col-md-8">
                 <h1 class="text-center">Kişilik Testi Sonuçları</h1>
                 <div>
-                    <ul>
-                        {% for my_category, score in category_scores.items %}
-                            {% with description_field=description|dictsort:"kategori" %}
-                                {% for item in description_field %}
-                                    {% if item.kategori == my_category %}
-                                        {% if item.ust_sınır < score %}
-                                            <li>{{ item.yuksek_aciklama }}</li>
-                                        {% elif item.alt_sınır > score %}
-                                            <li>{{ item.dusuk_aciklama }}</li>
-                                        {% else %}
-                                            <li>{{ item.ortalama_aciklama }}</li>
-                                        {% endif %}
-                                    {% endif %}
-                                {% endfor %}
-                            {% endwith %}
+                    <ul>    
+                        {% for category, description in description.items %}
+                            <li>{{ description }}</li>
                         {% endfor %}
-
-
                     </ul>
                 </div>
 

@@ -1,9 +1,9 @@
 from django.db import models
 
 class Kisilik(models.Model):
-    kategori = models.CharField(max_length=50,primary_key=True)
-    alt_sınır = models.IntegerField()
-    ust_sınır = models.IntegerField()
+    kategori = models.CharField(max_length=50, primary_key=True)
+    alt_sinir = models.IntegerField()  # Renamed from alt_sınır
+    ust_sinir = models.IntegerField()  # Renamed from ust_sınır
     dusuk_aciklama = models.TextField()
     ortalama_aciklama = models.TextField()
     yuksek_aciklama = models.TextField()

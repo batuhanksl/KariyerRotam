@@ -11,25 +11,31 @@
             <ul class="list-group">
                 {% for meslekler in matching_meslek %}
                     <li class="list-group-item">
-                        <a href="{% url 'MeslekSorgulama:meslek_sorgulama' meslekler.slug %}" class="text-primary">{{ meslekler.meslek_adi }}</a>
+                        <a href="{% url 'MeslekSorgulama:meslek_sorgulama' meslekler.slug %}" class="text-primary">{{ meslekler.meslek_adi }} ({{meslekler.matching_score}})</a>
                     </li>
                 {% endfor %}
             </ul>
         </div>
     </div>
 
-    <div class="container mt-5" style="max-width: 600px;">
-        <h3>Bolumler</h3>
-        {% for bolum in bolumum %}
-            <p>{{ bolum }}</p>
-        {% endfor %}
-
-        <h3>Yetenekler</h3>
-        {% for skill in yeteneklerim %}
-            <p>{{ skill }}</p>
-        {% endfor %}
-
-        <h3>CV</h3>
-        <p class="text-muted">{{ resume.text }}</p>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 mb-3" style="border: 1px solid #df6c24; padding: 10px; border-radius: 10px; margin-top: 10px;">
+                <h3 class="text-center">Bolumler</h3>
+                {% for bolum in bolumum %}
+                    <li>{{ bolum }}</li>
+                {% endfor %}
+            </div>
+            <div class="col-md-4 mb-3" style="border: 1px solid #df6c24; padding: 10px; border-radius: 10px; margin-top: 10px;">
+                <h3 class="text-center">Yetenekler</h3>
+                {% for skill in yeteneklerim %}
+                    <li>{{ skill }}</li>
+                {% endfor %}
+            </div>
+            <div class="col-md-4 mb-3" style="border: 1px solid #df6c24; padding: 10px; border-radius: 10px; margin-top: 10px;">
+                <h3 class="text-center">CV</h3>
+                <p class="text-muted">{{ resume.text }}</p>
+            </div>
+        </div>
     </div>
 {% endblock %}

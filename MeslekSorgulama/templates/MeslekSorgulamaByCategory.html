@@ -5,44 +5,139 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h1 class="text-center">{{ meslek }}</h1>
+    <h1 class="text-center">{{ meslek }}</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="container mt-5 mb-3">
+                <div class="mt-4">
+                    <h3 class="text-primary">Maaş Bilgileri</h3>
+                    <p><strong>{{ katilimci }}</strong> kullanıcının katıldığı anket sonucu elde edilmiş maaş verileri:</p>
+                    <ul class="list-group">
+                        <li class="list-group-item">En düşük maaş: <strong>{{ dusuk_maas }}</strong></li>
+                        <li class="list-group-item">Ortalama maaş: <strong>{{ ortalama_maas }}</strong></li>
+                        <li class="list-group-item">En yüksek maaş: <strong>{{ yuksek_maas }}</strong></li>
+                    </ul>
+                </div>
         
-        <div class="mt-4">
-            <h3 class="text-primary">Maaş Bilgileri</h3>
-            <p><strong>{{ katilimci }}</strong> kullanıcının katıldığı anket sonucu elde edilmiş maaş verileri:</p>
-            <ul class="list-group">
-                <li class="list-group-item">En düşük maaş: <strong>{{ dusuk_maas }}</strong></li>
-                <li class="list-group-item">Ortalama maaş: <strong>{{ ortalama_maas }}</strong></li>
-                <li class="list-group-item">En yüksek maaş: <strong>{{ yuksek_maas }}</strong></li>
-            </ul>
+                <div class="mt-4">
+                    <h3 class="text-primary">İlgili Yetenekler</h3>
+                    <ul class="list-group">
+                        {% for yetenek in yetenekler %}
+                            <li class="list-group-item">{{ yetenek }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
-
-        <div class="mt-4">
-            <h3 class="text-primary">İlgili Bölümler</h3>
-            <ul class="list-group">
-                {% for bol in bolumler %}
-                    <li class="list-group-item">{{ bol.bolum }} / %{{ bol.yuzde }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div class="mt-4">
-            <h3 class="text-primary">İlgili Sektörler</h3>
-            <ul class="list-group">
-                {% for sek in sektorler %}
-                    <li class="list-group-item">{{ sek.sektor }} / %{{ sek.yuzde }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div class="mt-4">
-            <h3 class="text-primary">İlgili Yetenekler</h3>
-            <ul class="list-group">
-                {% for yetenek in yetenekler %}
-                    <li class="list-group-item">{{ yetenek }}</li>
-                {% endfor %}
-            </ul>
+        <div class="col-md-4 text-center">
+            <div class="container mt-5">
+                <h3>{{ meslek }} olarak çalışanların en çok mezun olduğu bölümler</h3>
+                <canvas id="pieChartBolumler" style="height: 80%; width: 80%;"></canvas>
+            </div>
+            
+            <div class="container mt-5">
+                <h3>{{ meslek }} olarak çalışanların en çok çaıştığı sektörler</h3>
+                <canvas id="pieChartSektorler" style="height: 80%; width: 80%;"></canvas>
+            </div>
         </div>
     </div>
+    
+
+    
+    <!-- Hidden div to hold data for both charts -->
+    <div id="chart-data-bolumler" 
+        data-labels="{{ bolumler.keys|join:', ' }}" 
+        data-values="{{ bolumler.values|join:', ' }}">
+    </div>
+    
+    <div id="chart-data-sektorler" 
+        data-labels="{{ sektorler.keys|join:', ' }}" 
+        data-values="{{ sektorler.values|join:', ' }}">
+    </div>
+    
+    
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const chartCanvasBolumler = document.getElementById('pieChartBolumler');
+            const chartCanvasSektorler = document.getElementById('pieChartSektorler');
+    
+            // Check if the canvas elements exist before proceeding
+            if (chartCanvasBolumler && chartCanvasSektorler) {
+                const ctxBolumler = chartCanvasBolumler.getContext('2d');
+                const ctxSektorler = chartCanvasSektorler.getContext('2d');
+    
+                // Fetch the data from the hidden divs for 'bolumler'
+                const chartDataBolumler = document.getElementById('chart-data-bolumler');
+                const labelsBolumler = chartDataBolumler.getAttribute('data-labels').split(','); // Split labels by comma
+                const dataValuesBolumler = chartDataBolumler.getAttribute('data-values').split(',').map(Number); // Convert values to numbers
+    
+                // Fetch the data from the hidden divs for 'sektorler'
+                const chartDataSektorler = document.getElementById('chart-data-sektorler');
+                const labelsSektorler = chartDataSektorler.getAttribute('data-labels').split(','); // Split labels by comma
+                const dataValuesSektorler = chartDataSektorler.getAttribute('data-values').split(',').map(Number); // Convert values to numbers
+                
+                // Create Pie chart for 'bolumler'
+                new Chart(ctxBolumler, {
+                    type: 'pie',
+                    data: {
+                        labels: labelsBolumler,
+                        datasets: [{
+                            label: "İlgili Bölümler",
+                            data: dataValuesBolumler,
+                            backgroundColor: ["#ff6e54","#ff8546","#ff9f34","#ffbb1f","#ffd802","#555555"], // Pie slice colors
+                            hoverBackgroundColor: ['#FF8C94', '#5FA8D5', '#FFD87C', '#62E4E4', '#B27AFF'],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (tooltipItem) {
+                                        return tooltipItem.label + ': ' + tooltipItem.raw + '%'; // Show percentage in tooltip
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+    
+                // Create Pie chart for 'sektorler'
+                new Chart(ctxSektorler, {
+                    type: 'pie',
+                    data: {
+                        labels: labelsSektorler,
+                        datasets: [{
+                            label: "İlgili Sektörler",
+                            data: dataValuesSektorler,
+                            backgroundColor: ["#ff6e54","#ff8546","#ff9f34","#ffbb1f","#ffd802","#555555"], // Pie slice colors
+                            hoverBackgroundColor: ['#FF8F6E', '#9F4ED3', '#6FC9D5', '#FFDA4D', '#F7A3B6'],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (tooltipItem) {
+                                        return tooltipItem.label + ': ' + tooltipItem.raw + '%'; // Show percentage in tooltip
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+    
 {% endblock %}

@@ -3,47 +3,10 @@ from django.shortcuts import render, redirect
 from .forms import ResumeUploadForm
 from .models import Resume
 from .utils import convert_pdf_to_txt_pages  # Import your text conversion function
-from MeslekSorgulama.models import Meslek, Bolum, Yetenek
+from MeslekSorgulama.models import Meslek, Bolum, Yetenek, MeslekBolum
+from django.db.models import Sum, Case, When, Value, IntegerField, Subquery, OuterRef
 
-def ozgecmis(request, resume_id):
-    try:
-        resume = Resume.objects.get(id=resume_id)
-    except Resume.DoesNotExist:
-        resume = None
-        # Optionally, you can return a 404 or a message here if the resume doesn't exist
 
-    matching_meslek = None
-
-    if resume:
-        extracted_text = resume.text
-        bolumum = []
-        my_skills = []
-
-        # Matching Bolum based on text (adjusting for lowercase comparison)
-        for bolum_keyword in Bolum.objects.all():
-            if bolum_keyword.bolum_adi.lower() in extracted_text.lower():
-                bolumum.append(bolum_keyword)
-
-        # Matching Yetenek based on text (adjusting for lowercase comparison)
-        for skill_keyword in Yetenek.objects.all():
-            if skill_keyword.yetenek_adi.lower() in extracted_text.lower():
-                my_skills.append(skill_keyword)
-
-        # Find matching Meslek
-        matching_meslek = Meslek.objects.filter(
-            bolumler__in=bolumum, yetenekler__in=my_skills
-        ).distinct()
-
-    if not matching_meslek:
-        message, problematic_rows = check_ats_compatibility(resume.text)
-        return render(request, 'uyumsorgula.html', {'resume': resume, 'message': message, 'problematic_rows': problematic_rows})
-    else:
-        return render(request, 'oneri.html', {
-            'resume': resume,
-            "bolumum": bolumum,
-            "yeteneklerim": my_skills,
-            'matching_meslek': matching_meslek
-        })
 
 def check_ats_compatibility(text):
     readable_text = str(text).replace(" ", "").replace("    ", "")
@@ -81,21 +44,63 @@ def upload_resume(request):
 
     return render(request, 'atsuyum.html', {'form': form})
 
-def upload_resume_oneri(request):
-    if request.method == 'POST' and request.FILES['file']:
+
+def upload_and_process_resume(request):
+    matching_meslek_sorted = None
+    resume = None
+
+    if request.method == 'POST' and request.FILES.get('file'):
         form = ResumeUploadForm(request.POST, request.FILES)
         if form.is_valid():
+            # Save the uploaded resume
             resume = form.save(commit=False)
             resume.text = convert_pdf_to_txt_pages(resume.file)  # Convert PDF to text
             resume.save()  # Save the resume object with extracted text
 
+            # Now, start matching bolum and yetenek from the resume text
+            extracted_text = resume.text
+            bolumum = []
+            my_skills = []
 
+            # Matching Bolum based on text (adjusting for lowercase comparison)
+            for bolum_keyword in Bolum.objects.all():
+                if bolum_keyword.bolum_adi.lower() in extracted_text.lower():
+                    bolumum.append(bolum_keyword)
 
-            return redirect('ozgecmis', resume_id=resume.id)
+            # Matching Yetenek based on text (adjusting for lowercase comparison)
+            for skill_keyword in Yetenek.objects.all():
+                if skill_keyword.yetenek_adi.lower() in extracted_text.lower():
+                    my_skills.append(skill_keyword)
+
+            # Assume bolumum is the selected department and my_skills is a list of skills
+            matching_meslek = Meslek.objects.filter(
+                bolumler__in=bolumum, yetenekler__in=my_skills
+            ).distinct()
+
+            # Sort by matching score
+            matching_meslek_sorted = matching_meslek.annotate(
+                matching_score=Sum(
+                    Case(
+                        When(yetenekler__in=my_skills, then=Value(1)),
+                        default=Value(0),
+                        output_field=IntegerField(),
+                    )
+                ) * Subquery(
+                    MeslekBolum.objects.filter(
+                        meslek=OuterRef('pk'),
+                        bolum__in=bolumum
+                    ).values('yuzde')[:1]
+                )
+            ).order_by('-matching_score')
+
+            # Pass the resume and matching_meslek_sorted to the template
+            return render(request, 'oneri.html', {'resume': resume, 'matching_meslek': matching_meslek_sorted,"bolumum":bolumum,"yeteneklerim":my_skills})
 
     else:
         form = ResumeUploadForm()
 
+    # If not POST or if POST fails, render the form to upload resume
     return render(request, 'meslekoner.html', {'form': form})
+
 
 

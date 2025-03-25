@@ -7,16 +7,16 @@
 {% block content %}
     <div class="container mt-5">
         <h1 class="text-center mb-4">Biz Kimiz?</h1>
-        <p class="text-center">{{ hakkimizdaDB.infoParagraph }}</p>
+        <p class="text-center">{{aciklama}}</p>
 
         <h2 class="mt-5 mb-3">Ekibimiz</h2>
-        {% for insan in hakkimizdaDB.insanlar %}
+        {% for insan in hakkimizdaDB %}
             <div class="row mt-3 mb-4 align-items-center">
                 <div class="col-md-4 text-center">
-                    <img src="{{ insan.imageURL }}" alt="Team Member" style="border-radius: 50%; width: 170px; height: 170px;">
+                    <img src="{{ insan.img.url }}" alt="{{insan.isim}}" style="border-radius: 50%; width: 170px; height: 170px;">
                 </div>
                 <div class="col-md-8">
-                    <h3 class="mb-2">{{ insan.ad }}</h3>
+                    <h3 class="mb-2">{{ insan.isim }}</h3>
                     <a href="mailto:{{ insan.mail }}" class="text-primary">{{ insan.mail }}</a>
                 </div>
             </div>

@@ -5,5 +5,4 @@ app_name = 'KisilikTesti'
 
 urlpatterns = [
     path('', views.sorular),
-    path('test/', views.test_results),
 ]

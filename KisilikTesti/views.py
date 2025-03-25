@@ -21,7 +21,6 @@ def sorular(request):
         })
 
     if request.method == 'POST':
-        answers = {}
         my_data = {}
 
         # Get all the answers from the form
@@ -51,18 +50,17 @@ def sorular(request):
                     category_scores[category] = 0  # Initialize category score if not present
                 category_scores[category] += my_data[question_id]
 
-        return render(request, 'kisiliktestisonuc.html', {'answers': my_data, 'category_scores': category_scores, 'description': description})
+        description_map = {}
+        for item in description:
+            for category, score in category_scores.items():
+                if item == category:
+                    if score < item.alt_sinir:
+                        description_map[category] = item.dusuk_aciklama
+                    elif item.alt_sinir <= score <= item.ust_sinir:
+                        description_map[category] = item.ortalama_aciklama
+                    else:
+                        description_map[category] = item.yuksek_aciklama
+
+        return render(request, 'kisiliktestisonuc.html', {'answers': my_data, 'category_scores': category_scores, 'description': description_map})
 
     return render(request, 'kisiliktestisorular.html', {'questions': question_map})
-
-
-
-def test_results(request):
-    category_scores = {
-        "Extraversion": 30,
-        "Emotional Stability": 45,
-        "Agreeableness": 50,
-        "Conscientiousness": 35,
-        "Intellect": 40
-    }
-    return render(request, 'kisiliktestisonuc.html', {'category_scores': category_scores})
